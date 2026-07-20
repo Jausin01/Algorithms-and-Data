@@ -4,7 +4,9 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    Inventory inventory;
+    inventory.Initialize();
+    inventory.DisplayInventory();
 }
 
 

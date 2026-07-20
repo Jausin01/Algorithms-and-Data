@@ -135,7 +135,7 @@ int main()
 		std::cout << "\n"; 
 		++i;
 
-	} while (players.Size() < 20);
+	} while (i < 20);
 
 	std::cout << "\n\nTHE FIGHT WILL START!!!\n\n";
 	FightWithTwoPlayers(players);
