@@ -21,17 +21,17 @@ public:
 	using reference = T&;
 	
 	ContainerIterator(T* ptr) : mPtr(ptr){}
-	T& operator*() { return *mPtr; }
-	T* operator->() { return mPtr; }
+	T& operator*() const { return *mPtr; }
+	T* operator->() const { return mPtr; }
 
 	// ++iter
 	ContainerIterator& operator++() { ++mPtr; return *this; }
 	// --iter
 	ContainerIterator& operator--() { --mPtr; return *this; }
 	// iter++
-	ContainerIterator& operator++(int) { ContainerIterator tmp = *this; ++(*this); return tmp; }
+	ContainerIterator operator++(int) { ContainerIterator tmp = *this; ++(*this); return tmp; }
 	// iter--
-	ContainerIterator& operator--(int) { ContainerIterator tmp = *this; --(*this); return tmp; }
+	ContainerIterator operator--(int) { ContainerIterator tmp = *this; --(*this); return tmp; }
 
 	// (+ and -) doesnt modify the object
 	ContainerIterator operator+(difference_type n) const { return ContainerIterator(mPtr + n); }
@@ -41,7 +41,7 @@ public:
 	ContainerIterator& operator+=(difference_type n) { mPtr += n; return *this; }
 	ContainerIterator& operator-=(difference_type n) { mPtr -= n; return *this; }
 
-	difference_type operator-(const ContainerIterator& rhs) const { return mPtr = rhs.mPtr; }
+	difference_type operator-(const ContainerIterator& rhs) const { return mPtr - rhs.mPtr; }
 
 	// comparison
 	bool operator==(const ContainerIterator& rhs) const { return mPtr == rhs.mPtr; }
