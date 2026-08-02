@@ -14,8 +14,8 @@ private:
 	{
 		const T* point = nullptr;
 		const void* userData = nullptr;
-		KDNode* left;
-		KDNode* right;
+		KDNode* left = nullptr;
+		KDNode* right = nullptr;
 	};
 public:
 	KDTree() {}
@@ -40,15 +40,13 @@ public:
 		{
 			if (mNodes[i]->userData == userData)
 			{
-				// find tbhe node, swap with the back, pop the back
-
-				KDNode* temp;
+				// find the node, swap with the back, pop the back
+				KDNode* temp = mNodes[i];
 				mNodes[i] = mNodes[numNodes - 1];
-				mNodes[numNodes - 1] = temp;
+				mNodes.PopBack();
 				// delete the node to clean up memory
 				delete temp;
 				temp = nullptr;
-				mNodes.PopBack();
 				break;
 
 			}
@@ -98,9 +96,9 @@ private:
 			return nullptr;
 		}
 		std::sort(nodes.Begin(), nodes.End(), [depth](const KDNode* a, const KDNode* b)
-		{
-			return a->point[depth] < b->point[depth];
-		});
+			{
+				return a->point[depth] < b->point[depth];
+			});
 		int median = nodes.Size() / 2;
 		KDNode* node = nodes[median];
 		// store half of the nodes on the left, and half of the nodes on the right
@@ -167,7 +165,7 @@ private:
 		float distSqr = 0.0f;
 		for (std::size_t i = 0; i < K; ++i)
 		{
-			distSqr += (a[i] - b[i] * (a[i] - b[i]));
+			distSqr += (a[i] - b[i]) * (a[i] - b[i]);
 		}
 		return distSqr;
 	}

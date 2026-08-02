@@ -190,11 +190,22 @@ public:
 		mValues[mSize].~T();
 	}
 
+	void PopFront()
+	{
+		// swap the front index all the way to the back and pop it.
+		mValues[0].~T();
+		for (std::size_t i = 0; i < mSize - 1; ++i)
+		{
+
+			mValues[i] = mValues[i + 1];
+
+		}
+		PopBack();
+	}
 
 	T& operator[](std::size_t index)
 	{
 		assert(index < mSize && "Index out of range");
-
 		return mValues[index];
 	}
 
@@ -217,7 +228,6 @@ public:
 private:
 
 	T* mValues = nullptr;
-
 	std::size_t mCapacity = 0; // allocated memory
 	std::size_t mSize = 0;     // number of elements
 };
